@@ -22,12 +22,15 @@ var selectUppercase;
 var selectLowercase;
 var selectCharacter;
 var choices;
-
+numbers = [0,1,2,3,4,5,6,7,8,9];
+up = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+low = "abcdefghijklmnopqrstuvwxyz";
+special = "!#$%&()*+,-./:;<=>?@[\]^_`{|}~";
 
 
 /* Possible new code with new prompts */ 
 function generatePassword() {
-    enter = parseInt(prompt("Between 8 and 128 how many characters would you like in your password?"));
+    enter = parseInt(prompt("Between 8 and 128 how many characters would you like to have in your password?"));
 /*Validation of input*/
     if (!enter) {
         alert("This needs a value");
@@ -39,16 +42,58 @@ function generatePassword() {
         selectLowercase = confirm("Do you want this password to contain lowercase letters?");
         selectUppercase = confirm("Do you want this password to contain uppercase letters?");
     };
-    if (!selectCharacter && !selectNumber && !selectUppercase && !selectLowercase) {
+    if (!selectNumber && !selectCharacter && !selectLowercase && !selectUppercase) {
         choices = alert("You must choose between prompted critera!");
+    } /* 4 postives */
+    else if (selectNumber && selectCharacter && selectLowercase && selectUppercase) {
+        choices = numbers.concat(up, low, special);
+    } /* 3 positives */
+    else if (selectNumber && selectCharacter && selectUppercase) {
+        choices = numbers.concat(special, up);
     }
-
-}
+    else if (selectNumber && selectCharacter && selectLowercase) {
+        choices = numbers.concat(special, low);
+    }
+    else if (selectCharacter && selectUppercase && selectLowercase) {
+        choices = special.concat(up, low);
+    }
+    else if (selectNumber && selectUppercase && selectLowercase) {
+        choices = numbers.concat(up, low);
+    } /* 2 positives */
+    else if (selectNumber && selectCharacter) {
+        choices = numbers.concat(special);
+    }
+    else if (selectNumber && selectLowercase) {
+        choices = numbers.concat(low);
+    }
+    else if (selectNumber && selectUppercase) {
+        choices = numbers.concat(up);
+    }
+    else if (selectLowercase && selectCharacter) {
+        choices = low.concat(special);
+    }
+    else if (selectLowercase && selectUppercase) {
+        choices = low.concat(up);
+    }
+    else if (selectCharacter && selectUppercase) {
+        choices = special.concat(up);
+    } /* 1 positive */
+    else if (selectCharacter) {
+        choices = special;
+    }
+    else if (selectNumber) {
+        choices = numbers;
+    }
+    else if (selectLowercase) {
+        choices = low;
+    }
+    else if (selectUppercase) {
+        choices = up;
+    }
+};
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", generatePassword);
-
-/* New password code */ 
 
 
 
